@@ -1,6 +1,6 @@
 
 index search jsp
-import project in eclipse. the path is ./data ./index so it can be run directly. 
+import project in eclipse
 
 
 web-google-map :
