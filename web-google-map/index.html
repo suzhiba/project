@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+
+<html>
+
+  <head>
+
+<html>
+
+  <head>
+
+    <style>
+
+      #map {
+
+        width: 1000px;
+
+        height: 800px;
+
+      }
+
+   
+    </style>
+
+	<!-- Load Google Map API -->
+    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCoePt3VgkkwrGpf3qDzksVikLKJYYnlFk&sensor=false"></script>
+
+
+  </head>
+
+
+  <body>
+
+
+  	<!--  -->
+  	<center><div id="map"></div></center>
+  	<button onclick="getLocation()">Get Location</button><br>
+    Latitude: 
+    <label id="latitude">33.97857152099452</label>(we can get location only when the project is running in browser(not in eclipse))<br>
+    Longitude: 
+    <label id="longitude">-117.34057817257267</label><br>
+
+    <!-- Get User's Geolocation -->
+
+	
+    <!-- Map load script -->
+<script type="text/javascript" src="jquery-3.1.1.js"></script>  
+    <script type="text/javascript">  
+    var Ajax = function ()  
+    {  
+        $.getJSON ("info.txt", function (data)  
+        {   latitude= new Array()
+   		longitud=new Array()
+		by=new Array()
+		tweet=new Array()
+            $.each (data, function (i, item)  
+            {    
+                latitude[i]=item.latitude
+                longitude[i]= item.longitude
+                by[i]=item.By
+				tweet[i]=item.tweet
+				$ ("#disp").append ("<h3>" + item.tweet + "</h3>");  
+				$ ("#disp").append ("<p>" + item.By + "</p>");  
+				$ ("#disp").append ("<p>" + item.longitude + "</p>"); 
+				$ ("#disp").append ("<p>" + item.latitude + "</p>"); 
+			
+            });  
+        });  
+    }  
+</script>  
+ <input type="button" value="first!-clicktogetresult" onclick="Ajax();" />  and right click map to get result in map
+<div id="disp"></div>  
+<script>
+var map;
+var myCenter=new google.maps.LatLng(33.97857152099452,-117.34057817257267);
+
+function initialize()
+{
+var mapProp = {
+  center:myCenter,
+  zoom:9,
+  mapTypeId:google.maps.MapTypeId.ROADMAP
+  };
+
+  map = new google.maps.Map(document.getElementById("map"),mapProp);
+
+  google.maps.event.addListener(map, 'rightclick', function(event) {
+	
+		for (var i=0;i<10;i++){
+		var tweet=new google.maps.LatLng(latitude[i],longitude[i]);
+		   placeMarker(tweet,i);
+}
+
+   
+  });
+}
+
+function placeMarker(tweet,i) {
+
+  var marker = new google.maps.Marker({//placeMarker
+    position: tweet,
+    map: map,
+  });
+  var infowindow = new google.maps.InfoWindow({
+    content: 'Latitude: ' + tweet.lat() + '<br>Longitude: ' + tweet.lng()
+  });
+  infowindow.open(map,marker);
+}
+ 
+google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+
+
+
+
+
+  </body>
+
+</html>
+
+
+</html>
